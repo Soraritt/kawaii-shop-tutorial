@@ -7,14 +7,18 @@ import (
 	"github.com/soraritt/kawaii-shop-tutorial/modules/monitor"
 )
 
+// interface
 type IMonitorHandler interface {
+	//hanlder ของ fiber  , *fiber.Ctx
 	HealthCheck(c *fiber.Ctx) error
 }
 
+// struct
 type monitorHandler struct {
 	config config.IConfig
 }
 
+// constructor
 func MonitorHandler(config config.IConfig) IMonitorHandler {
 	return &monitorHandler{
 		config: config,

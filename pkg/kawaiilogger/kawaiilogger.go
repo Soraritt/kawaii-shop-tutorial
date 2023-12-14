@@ -74,6 +74,7 @@ func (l *kawaiiLogger) SetQuery(c *fiber.Ctx) {
 func (l *kawaiiLogger) SetBody(c *fiber.Ctx) {
 	var body any
 	if err := c.BodyParser(&body); err != nil {
+		log.Printf("body : %v", body)
 		log.Printf("body parser error: %v", err)
 	}
 

@@ -26,6 +26,7 @@ func NewServer(config config.IConfig, database *sqlx.DB) IServer {
 	return &server{
 		config:   config,
 		database: database,
+		// fiber.New -> Instance ของ Fiber ที่ไว้ใช้เก็บ Context ต่างๆ
 		app: fiber.New(fiber.Config{
 			AppName:      config.App().Name(),
 			BodyLimit:    config.App().BodyLimit(),
@@ -47,7 +48,9 @@ func (s *server) Start() {
 	//Modules
 	v1 := s.app.Group("v1")
 	modules := InitModule(v1, s, middlewares)
+
 	modules.MonitorModule()
+	modules.UsersModule()
 
 	s.app.Use(middlewares.RouterCheck())
 
